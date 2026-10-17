@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal | COLM Registrar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=4">
+</head>
+<body data-portal-role="Student">
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <div class="app" id="portalApp" hidden>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <img class="logo" src="assets/images/colm_logo.png" alt="COLM logo">
+        <div class="brand-text">
+          <strong id="portalBrandTitle">STUDENT PORTAL</strong>
+          <span>COLM REGISTRAR</span>
+        </div>
+        <button class="collapse-btn" id="collapseBtn" type="button" aria-label="Toggle sidebar"><span class="material-symbol" id="sidebarIcon">left_panel_close</span></button>
+      </div>
+
+      <nav class="nav">
+        <div class="nav-group">
+          <div class="section-title">MAIN</div>
+          <a class="nav-item" href="#" data-page="Dashboard"><span class="icon material-symbol">dashboard</span><span>Dashboard</span></a>
+          <a class="nav-item" href="#" data-page="Document Catalog"><span class="icon material-symbol">description</span><span>Document Catalog</span></a>
+          <a class="nav-item" href="#" data-page="My Requests"><span class="icon material-symbol">assignment_turned_in</span><span>My Requests</span></a>
+        </div>
+        <div class="nav-group">
+          <div class="section-title">ACCOUNT</div>
+          <a class="nav-item" href="#" data-page="My Profile"><span class="icon material-symbol">badge</span><span>My Profile</span></a>
+        </div>
+        <div class="nav-group">
+          <div class="section-title">OVERVIEW</div>
+          <a class="nav-item" href="#" data-page="Organizational Chart"><span class="icon material-symbol">account_tree</span><span>Organizational Chart</span></a>
+        </div>
+        <div class="nav-group">
+          <div class="section-title">SUPPORT</div>
+          <a class="nav-item" href="#" data-page="Help &amp; FAQs"><span class="icon material-symbol">quiz</span><span>Help &amp; FAQs</span></a>
+        </div>
+        <div class="nav-group">
+          <div class="section-title">GENERAL</div>
+          <a class="nav-item" href="#" data-page="Settings"><span class="icon material-symbol">settings</span><span>Settings</span></a>
+        </div>
+      </nav>
+
+      <div class="student-card">
+        <strong id="studentName"></strong>
+        <span id="studentRole">Student</span>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="page-title">
+          <button class="collapse-btn mobile-sidebar-toggle" id="mobileSidebarBtn" type="button" aria-label="Open sidebar"><span class="material-symbol" id="mobileSidebarIcon">left_panel_open</span></button>
+          <span class="title-icon material-symbol" id="pageIcon">dashboard</span>
+          <span id="pageTitle">Dashboard</span>
+        </div>
+
+        <div class="top-actions">
+          <div class="search" id="searchControl">
+            <button class="search-toggle" id="searchToggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="searchInput"><span class="search-icon material-symbol">search</span></button>
+            <input id="searchInput" type="search" placeholder="Search" aria-label="Search portal" autocomplete="off" hidden>
+          </div>
+          <button type="button" class="top-icon notif-btn" id="notifBtn" title="Notifications" aria-label="Notifications" aria-expanded="false"><span class="material-symbol">notifications</span><span class="notif-badge" id="notifBadge" hidden>0</span></button>
+          <button type="button" class="top-icon" title="Theme" aria-label="Toggle theme" id="themeBtn"><span class="material-symbol" id="themeIcon">dark_mode</span></button>
+          <div class="profile-menu" id="profileMenu">
+            <div class="avatar material-symbol">person</div>
+            <span id="profileId"></span>
+            <span class="chevron material-symbol">expand_more</span>
+            <div class="profile-dropdown" id="profileDropdown">
+              <div><strong id="profileName"></strong></div>
+              <div id="profileRole">Student</div>
+              <hr>
+              <button type="button" data-page-action="Settings">Settings</button>
+              <button id="logoutBtn" type="button">Log out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="content" id="content">
+        <div class="dashboard">
+          <header class="dashboard-heading">
+            <div>
+              <p class="dashboard-eyebrow">STUDENT PORTAL</p>
+              <h1>Welcome back, <span id="welcomeName"></span></h1>
+              <p>Keep track of your registrar requests and student services.</p>
+            </div>
+            <time class="dashboard-date" id="dashboardDate"></time>
+          </header>
+
+          <section class="dashboard-section" aria-labelledby="requestOverviewTitle">
+            <div class="dashboard-section-heading">
+              <div>
+                <h2 id="requestOverviewTitle">Request overview</h2>
+                <p>Your document requests at a glance.</p>
+              </div>
+              <a class="dashboard-text-link" href="#" data-page-action="My Requests">View requests <span class="material-symbol">arrow_forward</span></a>
+            </div>
+
+            <div class="stat-cards">
+              <div class="stat-card">
+                <div class="stat-card-icon icon-total"><span class="material-symbol">description</span></div>
+                <div class="stat-card-info">
+                  <strong class="stat-number" id="statTotal">0</strong>
+                  <span class="stat-label" id="statTotalLabel">Total Requests</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-icon icon-processing"><span class="material-symbol">schedule</span></div>
+                <div class="stat-card-info">
+                  <strong class="stat-number" id="statProcessing">0</strong>
+                  <span class="stat-label" id="statProcessingLabel">In Processing</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-icon icon-pending"><span class="material-symbol">credit_card</span></div>
+                <div class="stat-card-info">
+                  <strong class="stat-number" id="statPending">0</strong>
+                  <span class="stat-label" id="statPendingLabel">Pending Payment</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-icon icon-ready"><span class="material-symbol">download</span></div>
+                <div class="stat-card-info">
+                  <strong class="stat-number" id="statReady">0</strong>
+                  <span class="stat-label" id="statReadyLabel">Ready for Claiming</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-icon icon-completed"><span class="material-symbol">check</span></div>
+                <div class="stat-card-info">
+                  <strong class="stat-number" id="statCompleted">0</strong>
+                  <span class="stat-label" id="statCompletedLabel">Released / Completed</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="request-empty" id="dashboardEmpty">
+              <span class="request-empty-icon material-symbol">folder_open</span>
+              <div>
+                <h3>No requests yet</h3>
+                <p>Browse the document catalog to start a request.</p>
+              </div>
+              <a class="dashboard-action" href="#" data-page-action="Document Catalog"><span class="material-symbol">description</span>Browse documents</a>
+            </div>
+          </section>
+
+          <details class="dashboard-section student-request-section student-disclosure" aria-labelledby="myDocRequestsTitle">
+            <summary class="dashboard-section-heading student-disclosure-heading">
+              <span class="student-disclosure-copy"><span class="student-disclosure-title" id="myDocRequestsTitle" role="heading" aria-level="2">My Document Requests</span><span class="student-disclosure-description">Your documents, their status and the soft copy (PDF) downloads.</span></span>
+              <span class="material-symbol student-disclosure-icon" aria-hidden="true">expand_more</span>
+            </summary>
+            <div class="student-disclosure-content">
+              <div class="requests-table-wrap student-dashboard-table student-request-table">
+                <table class="requests-table compact">
+                  <thead><tr><th>Request No.</th><th>Document</th><th>Format</th><th>Status</th><th>Payment Status</th><th>Soft Copy</th><th>Actions</th></tr></thead>
+                  <tbody id="myDocsRequestsBody"><tr><td colspan="7" class="requests-empty">Loading...</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+
+          <details class="dashboard-section student-upload-section student-disclosure" aria-labelledby="myDocsTitle">
+            <summary class="dashboard-section-heading student-disclosure-heading">
+              <span class="student-disclosure-copy"><span class="student-disclosure-title" id="myDocsTitle" role="heading" aria-level="2">My submitted documents</span><span class="student-disclosure-description">The result of the document check for every file you uploaded.</span></span>
+              <span class="doc-summary student-document-summary" id="docSummary"></span>
+              <span class="material-symbol student-disclosure-icon" aria-hidden="true">expand_more</span>
+            </summary>
+            <div class="student-disclosure-content">
+              <div class="requests-table-wrap student-dashboard-table student-upload-table">
+                <table class="requests-table">
+                  <thead><tr><th>Document</th><th>Requirement</th><th>File</th><th>Status</th><th>Reason</th></tr></thead>
+                  <tbody id="dashboardDocsBody"><tr><td colspan="5" class="requests-empty">Loading...</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+
+          <div class="dashboard-lower">
+            <section class="dashboard-section quick-links" aria-labelledby="quickLinksTitle">
+              <h2 id="quickLinksTitle">Quick links</h2>
+              <a class="quick-link" href="#" data-page-action="My Requests"><span class="material-symbol">assignment_turned_in</span><span>My Requests</span><span class="material-symbol quick-link-arrow">arrow_forward</span></a>
+              <a class="quick-link" href="#" data-page-action="Help &amp; FAQs"><span class="material-symbol">quiz</span><span>Frequently asked questions</span><span class="material-symbol quick-link-arrow">arrow_forward</span></a>
+              <a class="quick-link" href="#" data-open-chat><span class="material-symbol">smart_toy</span><span>Ask the AI Assistant</span><span class="material-symbol quick-link-arrow">arrow_forward</span></a>
+            </section>
+
+            <section class="dashboard-support" aria-labelledby="supportTitle">
+              <span class="dashboard-support-icon material-symbol">support_agent</span>
+              <div>
+                <p class="dashboard-eyebrow">REGISTRAR SUPPORT</p>
+                <h2 id="supportTitle">Need assistance?</h2>
+                <p>Ask the chatbot or read the frequently asked questions.</p>
+                <a class="dashboard-text-link" href="#" data-open-chat>Open the chatbot <span class="material-symbol">arrow_forward</span></a>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="catalog" hidden>
+          <header class="dashboard-heading">
+            <div>
+              <p class="dashboard-eyebrow">STUDENT PORTAL</p>
+              <h1>Document Catalog</h1>
+              <p>Browse available documents and start a request.</p>
+            </div>
+          </header>
+
+          <div class="doc-grid" id="docGrid"><p class="requests-empty">Loading documents...</p></div>
+        </div>
+
+        <div class="requests" hidden>
+  <section class="request-form-panel" id="requestFormPanel" hidden aria-labelledby="requestFormTitle">
+    <header class="request-form-header">
+      <div>
+        <h2 id="requestFormTitle">Document Request Form</h2>
+        <p>Complete each step to submit your registrar request.</p>
+      </div>
+      <button class="request-cancel-btn" id="cancelRequestForm" type="button">Cancel</button>
+    </header>
+
+    <ol class="request-stepper" aria-label="Request steps">
+      <li class="active" data-step-indicator="1"><span>1</span><b>Document</b></li>
+      <li data-step-indicator="2"><span>2</span><b>Purpose</b></li>
+      <li data-step-indicator="3"><span>3</span><b>Requirements</b></li>
+      <li data-step-indicator="4"><span>4</span><b>Review</b></li>
+      <li data-step-indicator="5"><span>5</span><b>Success</b></li>
+    </ol>
+
+    <form id="documentRequestForm" novalidate>
+      <p class="request-form-message" id="requestFormMessage" role="status" aria-live="polite"></p>
+      <section class="request-step" data-request-step="1">
+        <h3>Step 1: Choose Document &amp; Quantity</h3>
+        <div id="requestDocumentRows"></div>
+        <button class="request-add-btn" id="addDocumentRow" type="button"><span class="material-symbol">add</span>Add another document</button>
+        <div class="request-form-footer request-step-total">
+          <div class="request-total"><span>Estimated fee assessment</span><strong id="requestTotal">0.00</strong></div>
+        </div>
+        <p class="request-date-note">Estimated release dates count working days from request submission and exclude weekends. The last date shown is the latest estimated release date; holidays or processing delays may change it.</p>
+        <div class="request-form-actions">
+          <button class="request-next-btn" type="button" data-next-step="2">Proceed to Purpose <span aria-hidden="true"></span></button>
+        </div>
+      </section>
+
+      <section class="request-step" data-request-step="2" hidden>
+        <h3>Step 2: Purpose &amp; Delivery Method</h3>
+        <label class="request-form-label" for="requestPurpose">Specific purpose of request</label>
+        <input class="request-text-input" id="requestPurpose" name="purpose" type="text" placeholder="e.g. Scholarship application, employment, transfer" required>
+        <div class="request-two-column">
+          <div>
+            <label class="request-form-label" for="requestReleaseMethod">Document Format</label>
+            <select class="request-text-input" id="requestReleaseMethod" name="releaseMethod" required></select>
+            <p class="request-date-note" id="formatHint" aria-live="polite"></p>
+          </div>
+          <div>
+            <label class="request-form-label" for="requestPaymentMethod">Preferred payment method</label>
+            <select class="request-text-input" id="requestPaymentMethod" name="paymentMethod" required>
+              <option value="Cash">Cash</option>
+              <option value="GCash">GCash</option>
+            </select>
+          </div>
+          <div class="request-date-field">
+            <span class="request-form-label">Date Release</span>
+            <output class="request-date-display" id="dateReleaseDisplay">Choose a document first</output>
+          </div>
+        </div>
+        <div class="request-form-actions request-form-actions-split">
+          <button class="request-back-btn" type="button" data-previous-step="1"> Back</button>
+          <button class="request-next-btn" type="button" data-next-step="3">Proceed to Requirements <span aria-hidden="true"></span></button>
+        </div>
+      </section>
+
+      <section class="request-step" data-request-step="3" hidden>
+        <h3>Step 3: Review Required Items</h3>
+        <p class="request-step-description">Upload a file for each requirement below. Each file gets an initial document pre-check. You can continue when every required file passes; the registrar will review your request before processing. Then confirm that you have reviewed the requirements.</p>
+        <div id="requestRequirementsList"></div>
+        <p class="request-date-note">Accepted formats: PDF, JPG, JPEG or PNG. Use a clear, complete copy that shows your name.</p>
+        <div class="request-form-actions request-form-actions-split">
+          <button class="request-back-btn" type="button" data-previous-step="2"> Back</button>
+          <button class="request-next-btn" id="reviewRequestBtn" type="button" data-next-step="4">Review Request <span aria-hidden="true"></span></button>
+        </div>
+      </section>
+
+      <section class="request-step" data-request-step="4" hidden>
+        <h3>Step 4: Review Application Summary</h3>
+        <div class="request-review-card">
+          <div class="request-review-grid">
+            <div><span>Purpose</span><strong id="reviewPurpose"></strong></div>
+            <div><span>Document format</span><strong id="reviewReleaseMethod"></strong></div>
+            <div><span>Payment method</span><strong id="reviewPaymentMethod"></strong></div>
+            <div><span>Date Release</span><strong id="reviewReleaseDate"></strong></div>
+            <div><span>Attachments</span><strong id="reviewAttachments">None</strong></div>
+          </div>
+          <div class="request-review-table-wrap">
+            <table class="request-review-table">
+              <thead><tr><th>Document</th><th>Copies</th><th>Unit price</th><th>Total fee</th><th>Date Release</th></tr></thead>
+              <tbody id="requestReviewRows"></tbody>
+            </table>
+          </div>
+          <div class="request-review-total"><span>Total fee</span><strong id="reviewTotal">0.00</strong></div>
+        </div>
+        <div class="request-form-actions request-form-actions-split">
+          <button class="request-back-btn" type="button" data-previous-step="3"> Back</button>
+          <button class="request-submit-btn" id="submitRequestBtn" type="submit">Submit Request <span aria-hidden="true"></span></button>
+        </div>
+      </section>
+    </form>
+
+    <section class="request-success" id="requestSuccess" hidden aria-live="polite">
+      <span class="request-success-icon material-symbol">task_alt</span>
+      <h3>Request Successfully Submitted!</h3>
+      <p><span id="requestSuccessText">Your request was submitted.</span></p>
+      <div class="request-tracking-card">
+        <div class="request-tracking-qr" id="requestTrackingQrCode" role="img" aria-label="QR code containing request tracking and document details"></div>
+        <div class="request-tracking-details">
+          <span>Your tracking number</span>
+          <strong id="requestTrackingNumber"></strong>
+          <span>Total assessment: <b id="successTotal">0.00</b></span>
+          <p class="request-qr-note" id="requestQrStatus" role="status">Preparing QR code...</p>
+          <button class="request-qr-download-btn" id="downloadTrackingQr" type="button" disabled><span class="material-symbol" aria-hidden="true">download</span>Download QR</button>
+        </div>
+      </div>
+      <div class="request-success-actions">
+        <button class="request-back-btn" id="copyTrackingNumber" type="button">Copy Tracking Number</button>
+        <button class="request-next-btn" id="viewMyRequests" type="button">View My Requests </button>
+      </div>
+    </section>
+  </section>
+
+  <div class="requests-card" id="requestsHistoryCard">
+    <div class="requests-header">
+      <h2>My Document Requests History</h2>
+      <button class="requests-new-btn" id="startNewRequestBtn" type="button"><span class="material-symbol" aria-hidden="true">add</span><span>New request</span></button>
+    </div>
+
+    <div class="filter-bar" id="requestFilters" role="search" aria-label="Filter requests">
+      <label>Status<select class="request-text-input" id="statusFilter"><option value="">All statuses</option></select></label>
+      <label>Payment<select class="request-text-input" id="paymentFilter"><option value="">All</option><option value="Paid">Paid</option><option value="Unpaid">Unpaid</option></select></label>
+      <label>Document<select class="request-text-input" id="documentFilter"><option value="">All documents</option></select></label>
+      <label>From<input class="request-text-input" type="date" id="dateFrom"></label>
+      <label>To<input class="request-text-input" type="date" id="dateTo"></label>
+      <button class="request-back-btn filter-reset" id="filtersReset" type="button">Reset filters</button>
+    </div>
+    <p class="filter-count" id="requestCount" aria-live="polite"></p>
+
+    <div class="requests-table-wrap">
+      <table class="requests-table">
+        <thead>
+          <tr>
+            <th>Tracking #</th>
+            <th>Requester</th>
+            <th>Document</th>
+            <th>Amount</th>
+            <th>Date Release</th>
+            <th>Payment</th>
+            <th>Payment method</th>
+            <th>Status</th>
+            <th>Overdue</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="requestsBody">
+          <tr>
+            <td colspan="10" class="requests-empty">No requests found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+                <div class="profile-page" hidden>
+          <header class="dashboard-heading">
+            <div><p class="dashboard-eyebrow">ACCOUNT</p><h1>My Profile</h1><p>Your student information and document verification status.</p></div>
+          </header>
+          <div id="profileContent"><p class="requests-empty">Loading...</p></div>
+        </div>
+        
+        <div class="help-page" hidden>
+          <header class="dashboard-heading">
+            <div>
+              <p class="dashboard-eyebrow">SUPPORT</p>
+              <h1>Help &amp; FAQs</h1>
+              <p>Answers to common questions about requesting documents.</p>
+            </div>
+          </header>
+          <div class="info-card">
+            <h3>How do I request a document?</h3>
+            <p>Open Document Catalog, choose a document, upload every required file, then submit. The system checks your files and the Registrar reviews them.</p>
+            <h3>How are my documents checked?</h3>
+            <p>Every file is checked when you upload it: it must be a supported file type, readable, complete, the right document, and show your name. If it is declined you will see the reason and can upload a clearer or correct copy. The Registrar still reviews and approves your documents.</p>
+            <h3>What if the Registrar asks for a correction?</h3>
+            <p>You will get a notification. Open My Requests, click View, and upload the corrected files.</p>
+            <h3>How do I pay?</h3>
+            <p>Pay in person at the registrar office. The cashier will mark your request as paid and you will be notified.</p>
+            <h3>Who can I contact?</h3>
+            <p>Visit the Registrar's Office during office hours, or check the Organizational Chart for the staff in charge of your program.</p>
+          </div>
+        </div>
+        <div class="settings-page" hidden>
+          <header class="dashboard-heading">
+            <div>
+              <p class="dashboard-eyebrow">GENERAL</p>
+              <h1>Settings</h1>
+              <p>Change your password.</p>
+            </div>
+          </header>
+          <form class="info-card settings-form" id="passwordForm" novalidate>
+            <label for="currentPassword">Current password</label>
+            <input class="request-text-input" id="currentPassword" type="password" autocomplete="current-password" required>
+            <label for="newPassword">New password (at least 8 characters)</label>
+            <input class="request-text-input" id="newPassword" type="password" autocomplete="new-password" required>
+            <label for="confirmPassword">Confirm new password</label>
+            <input class="request-text-input" id="confirmPassword" type="password" autocomplete="new-password" required>
+            <p class="form-message" id="passwordMessage" role="status" aria-live="polite"></p>
+            <button class="request-next-btn" type="submit">Change password</button>
+          </form>
+        </div>
+
+<div class="org-chart" hidden>
+  <header class="dashboard-heading">
+    <div>
+      <p class="dashboard-eyebrow">STUDENT PORTAL</p>
+      <h1>Organizational Chart</h1>
+    </div>
+  </header>
+
+  <div class="org-scroll">
+    <div class="org-tree">
+      <ul class="org-level org-level-root">
+        <li class="org-node org-node-president">
+          <div class="org-card">
+            <div class="org-card-top">
+              <div class="org-photo"></div>
+              <div class="org-info">
+                <strong>Santiago C. Castillo</strong>
+                <span>President</span>
+              </div>
+            </div>
+          </div>
+
+          <ul class="org-level org-level-leadership">
+            <li class="org-node org-node-vp">
+              <div class="org-card">
+                <div class="org-card-top">
+                  <div class="org-photo"></div>
+                  <div class="org-info">
+                    <strong>Arnuldo G. Magdaong, LPT, DBA (C)</strong>
+                    <span>Vice President for Administration and Student Services</span>
+                  </div>
+                </div>
+              </div>
+              <ul class="org-level org-level-registrars">
+            <!-- OIC-Registrar -->
+            <li class="org-node org-node-college-registrar">
+              <div class="org-card">
+                <div class="org-card-top">
+                  <div class="org-photo"></div>
+                  <div class="org-info">
+                    <strong>Limuel R. dela Cruz, CFMA, MBA (C)</strong>
+                    <span>College Registrar</span>
+                  </div>
+                </div>
+              </div>
+
+              <ul class="org-level org-level-college-team">
+                    <li>
+                      <div class="org-card">
+                        <div class="org-card-top">
+                          <div class="org-photo"></div>
+                          <div class="org-info">
+                            <strong>Shella Marie Venturina</strong>
+                            <span>Administrative Assistant</span>
+                            <em>Receiving</em>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="org-card">
+                        <div class="org-card-top">
+                          <div class="org-photo"></div>
+                          <div class="org-info">
+                            <strong>Dianara Pearl A. Cruz, LPT</strong>
+                            <span>Administrative Assistant</span>
+                            <em>Releasing</em>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="org-card">
+                        <div class="org-card-top">
+                          <div class="org-photo"></div>
+                          <div class="org-info">
+                            <strong>Gilaiza Salvador</strong>
+                            <span>Administrative Assistant</span>
+                            <em>HIMD, CSD, &amp; TED</em>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="org-node org-node-admissions">
+                      <div class="org-card">
+                        <div class="org-card-top">
+                          <div class="org-photo"></div>
+                          <div class="org-info">
+                            <strong>Jeremie Avilledo</strong>
+                            <span>Administrative Assistant</span>
+                            <em>AMD, ASD</em>
+                          </div>
+                        </div>
+                      </div>
+                      <ul class="org-level org-level-admissions-team">
+                        <li>
+                          <div class="org-card">
+                            <div class="org-card-top">
+                              <div class="org-photo"></div>
+                              <div class="org-info">
+                                <strong>Ma. Carina Anne E. Ordonio, LPT</strong>
+                                <span>Administrative Assistant</span>
+                                <em>Scholarship Coordinator</em>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="org-card">
+                            <div class="org-card-top">
+                              <div class="org-photo"></div>
+                              <div class="org-info">
+                                <strong>Precious Buenavixen Star Burton</strong>
+                                <span>Admission Officer</span>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <div class="org-card">
+                        <div class="org-card-top">
+                          <div class="org-photo"></div>
+                          <div class="org-info">
+                            <strong>Michaela Navalta</strong>
+                            <span>Administrative Assistant</span>
+                            <em>CJED</em>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+              </ul>
+            </li>
+
+            <!-- OIC Registrar - Basic Education -->
+            <li class="org-node org-node-basic-registrar">
+              <div class="org-card">
+                <div class="org-card-top">
+                  <div class="org-photo"></div>
+                  <div class="org-info">
+                    <strong>Rona Mae B. Mendoza, LPT</strong>
+                    <span>Registrar for Basic Education Department</span>
+                  </div>
+                </div>
+              </div>
+
+              <ul class="org-level org-level-basic-team">
+                <li>
+                  <div class="org-card">
+                    <div class="org-card-top">
+                      <div class="org-photo"></div>
+                      <div class="org-info">
+                        <strong>Liana Genesis C. Flores</strong>
+                        <span>Administrative Assistant</span>
+                        <em>Basic Education</em>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="org-legend">
+    <span><strong>HIMD</strong>  Hospitality and Institutional Management</span>
+    <span><strong>TED</strong>  Teacher Education</span>
+    <span><strong>CSD</strong>  Computer Studies</span>
+    <span><strong>AMD</strong>  Accountancy and Management</span>
+    <span><strong>ASD</strong>  Allied Science</span>
+    <span><strong>CJED</strong>  Criminal Justice Education</span>
+  </div>
+</div>
+
+        <footer class="site-footer">
+          <p>COLM Registrar Document Request &amp; Tracking System &copy; 2026 COLM.</p>
+        </footer>
+      </section>
+    </main>
+  </div>
+
+
+  <!-- Chatbot: floating icon at the bottom-right. The window opens when the icon is clicked. -->
+  <button class="chat-fab" id="chatFab" type="button" aria-label="Open chatbot" aria-expanded="false" hidden>
+    <span class="material-symbol" aria-hidden="true">chat</span>
+  </button>
+  <section class="chat-window" id="chatWindow" aria-label="Chatbot" hidden>
+    <header class="chat-window-header">
+      <strong>Chatbot</strong>
+      <span>
+        <button class="chat-window-btn" id="chatClear" type="button" title="Delete the conversation">Clear</button>
+        <button class="chat-window-btn material-symbol" id="chatClose" type="button" aria-label="Close chatbot">close</button>
+      </span>
+    </header>
+    <div class="chat-messages" id="chatMessages" role="log" aria-live="polite"></div>
+    <form class="chat-form" id="chatForm" autocomplete="off">
+      <label class="sr-only" for="chatInput">Your message</label>
+      <input class="request-text-input" id="chatInput" type="text" maxlength="500" placeholder="Type your message...">
+      <button class="request-next-btn" id="chatSend" type="submit">Send</button>
+    </form>
+  </section>
+
+  <script src="js/api.js"></script>
+  <script src="js/upload.js"></script>
+  <script src="js/auth.js?v=4"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/requests.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/softcopy.js"></script>
+  <script src="js/qr.js"></script>
+  <script src="js/newrequest.js"></script>
+</body>
+</html>

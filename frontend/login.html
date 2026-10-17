@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Sign In | COLM Registrar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=4">
+</head>
+<body>
+  <main class="login-view" id="loginView">
+    <section class="login-panel" aria-labelledby="loginTitle">
+      <div class="login-seal">
+        <img src="assets/images/colm_registrar_logo.png" alt="College of Mercy of Pulilan Foundation registrar seal">
+      </div>
+      <form class="login-form" id="loginForm">
+        <p class="login-kicker">WELCOME BACK</p>
+        <h1 id="loginTitle">Portal Sign In</h1>
+        <p class="login-subtitle">Office of the Registrar</p>
+        <div class="login-label-row">
+          <label for="loginUsername">Username</label>
+        </div>
+        <input id="loginUsername" name="username" type="text" placeholder="Username" autocomplete="username" required>
+        <div class="login-label-row password-label-row">
+          <label for="loginPassword">Password</label>
+          <button class="forgot-password" id="forgotPassword" type="button">Forgot Password?</button>
+        </div>
+        <div class="login-password-field">
+          <input id="loginPassword" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
+          <button class="password-visibility material-symbol" id="passwordVisibility" type="button" aria-label="Show password">visibility</button>
+        </div>
+        <label class="remember-option" for="rememberMe">
+          <input id="rememberMe" name="rememberMe" type="checkbox">
+          <span>Remember me</span>
+        </label>
+        <p class="login-notice" id="loginNotice" role="status" aria-live="polite"></p>
+        <p class="login-error" id="loginError" role="alert" aria-live="polite"></p>
+        <button class="login-submit" type="submit">Login</button>
+        
+      </form>
+    </section>
+    <footer class="login-footer">
+      <strong>College of Our Lady of Mercy of Pulilan Foundation, Inc.</strong>
+      <span>Registrar Document Request &amp; Tracking System</span>
+      <span>&copy; 2026 COLM. Authorized access only.</span>
+    </footer>
+  </main>
+  <div class="login-loading" id="loginLoading" role="status" aria-live="assertive" aria-label="Signing in to COLM portal" hidden>
+    <div class="login-loading-card">
+      <div class="login-loading-seal">
+        <img src="assets/images/colm_registrar_logo.png" alt="">
+      </div>
+      <div class="login-loading-word" aria-hidden="true">
+        <span>C</span><span>O</span><span>L</span><span>M</span>
+      </div>
+      <div class="login-loading-rule" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js?v=5"></script>
+</body>
+</html>
